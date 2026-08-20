@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Story</title>
+  <style>
+    :root {
+      --bg-color: #fdf2f8;
+      --card-bg: #ffffff;
+      --accent-color: #ec4899;
+      --text-color: #374151;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--accent-color);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #6b7280;
+      margin-bottom: 40px;
+    }
+
+    /* Timeline Styling */
+    .timeline {
+      position: relative;
+      margin-bottom: 50px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      border-left: 5px solid var(--accent-color);
+      text-align: left;
+    }
+
+    .card h3 {
+      margin: 0 0 10px 0;
+      color: var(--accent-color);
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Interactive Section */
+    .question-box {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      position: relative;
+      min-height: 200px;
+    }
+
+    .question-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      min-height: 60px;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-yes {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-no {
+      background-color: #e5e7eb;
+      color: #4b5563;
+      position: absolute;
+    }
+
+    /* Success Message */
+    #response-message {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      font-weight: bold;
+      margin-top: 20px;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>How It Started vs How It’s Going ✨</h1>
+    <p class="subtitle">From best friends to officially together.</p>
+
+    <!-- Interactive Memory Cards -->
+    <div class="timeline">
+      <div class="card">
+        <h3>Level 1: Best Friends 🤜🤛</h3>
+        <p>Late night chats, inside jokes, and laughing at things nobody else understood.</p>
+      </div>
+
+      <div class="card">
+        <h3>Level 2: The Plot Twist 💍</h3>
+        <p>You made the best move ever and proposed, and I said yes without hesitation.</p>
+      </div>
+
+      <div class="card">
+        <h3>Level 3: Officially Us ❤️</h3>
+        <p>Now we’re here, starting a whole new chapter together.</p>
+      </div>
+    </div>
+
+    <!-- Final Interactive Question -->
+    <div class="question-box">
+      <div id="quiz-content">
+        <h2>Do you really, really like me? 😉</h2>
+        <div class="btn-group" id="btn-group">
+          <button class="btn-yes" onclick="handleYes()">YES! ❤️</button>
+          <button class="btn-no" id="no-btn" onmouseover="moveNoButton()" onclick="moveNoButton()">NO 😜</button>
+        </div>
+      </div>
+      <div id="response-message">I knew it! You're stuck with me now! 🥰🎉</div>
+    </div>
+  </div>
+
+  <script>
+    // Initial setup for the dodging "NO" button
+    const noBtn = document.getElementById('no-btn');
+    const btnGroup = document.getElementById('btn-group');
+    
+    // Position NO button next to YES button initially
+    noBtn.style.left = '55%';
+
+    function moveNoButton() {
+      // Calculate random coordinates inside the question box container
+      const container = document.querySelector('.question-box');
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = containerRect.width - btnRect.width - 20;
+      const maxY = containerRect.height - btnRect.height - 20;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = randomX + 'px';
+      noBtn.style.top = randomY + 'px';
+    }
+
+    function handleYes() {
+      document.getElementById('quiz-content').style.display = 'none';
+      document.getElementById('response-message').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
